@@ -13,13 +13,13 @@ namespace LatestTrxDuplicate
             }
             else
             {
-                var argument = GenerateLatestTrxDuplicateArgument(args);
+                var argument = GenerateTrxDuplicateArgument(args);
             }
         }
 
-        private static LatestTrxDuplicateArgument GenerateLatestTrxDuplicateArgument(string[] args)
+        private static TrxDuplicateArgument GenerateTrxDuplicateArgument(string[] args)
         {
-            var argument = new LatestTrxDuplicateArgument();
+            var argument = new TrxDuplicateArgument();
 
             foreach (var arg in args.Select(a => a.Split('=')))
             {

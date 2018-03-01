@@ -1,6 +1,6 @@
 ﻿namespace LatestTrxDuplicate
 {
-    sealed class LatestTrxDuplicateArgument
+    sealed class TrxDuplicateArgument
     {
         public string Workspace { get; set; }
 

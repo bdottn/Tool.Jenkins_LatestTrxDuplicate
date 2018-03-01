@@ -39,7 +39,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LatestTrxDuplicateArgument.cs" />
+    <Compile Include="TrxDuplicateArgument.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
