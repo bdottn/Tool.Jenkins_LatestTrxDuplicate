@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace LatestTrxDuplicate
@@ -14,6 +15,8 @@ namespace LatestTrxDuplicate
             else
             {
                 var argument = GenerateTrxDuplicateArgument(args);
+
+                DuplicateTrx(argument);
             }
         }
 
@@ -49,6 +52,33 @@ namespace LatestTrxDuplicate
             }
 
             return argument;
+        }
+
+        private static void DuplicateTrx(TrxDuplicateArgument argument)
+        {
+            var testResultsDirectory = Path.Combine(argument.Workspace, argument.TestResultsFolder);
+
+            var targetFilePath = Path.Combine(testResultsDirectory, argument.OutputFileName);
+
+            if (Directory.Exists(testResultsDirectory) == false)
+            {
+                throw new DirectoryNotFoundException(string.Format("資料夾錯誤：資料夾【{0}】不存在！", testResultsDirectory));
+            }
+            else
+            {
+                var sourceTrxFile = Directory.GetFiles(testResultsDirectory, "*.trx", SearchOption.TopDirectoryOnly).OrderByDescending(f => File.GetLastWriteTime(f)).FirstOrDefault();
+
+                if (File.Exists(sourceTrxFile))
+                {
+                    File.Copy(sourceTrxFile, targetFilePath, true);
+
+                    Console.WriteLine(string.Format("複製檔案：【{0}】→【{1}】。", sourceTrxFile, targetFilePath));
+                }
+                else
+                {
+                    throw new FileNotFoundException(string.Format("檔案錯誤：檔案【{0}】不存在！", sourceTrxFile));
+                }
+            }
         }
     }
 }
